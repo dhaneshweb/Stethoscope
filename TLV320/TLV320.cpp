@@ -53,7 +53,7 @@ TLV320::TLV320(PinName sda, PinName scl, int addr, PinName tx_sda, PinName tx_ws
  * Parameters:      float leftVolumeIn, float rightVolumeIn
  * Returns:         int 0 (success), -1 (value out of range)
 ******************************************************/
-int TLV320::inputVolume(float leftVolumeIn, float rightVolumeIn){
+int TLV320::lineInputVolume(float leftVolumeIn, float rightVolumeIn){
     //check values are in range
     if((leftVolumeIn < 0.0)||leftVolumeIn > 1.0) return -1;
     if((rightVolumeIn < 0.0)||rightVolumeIn > 1.0) return -1;
@@ -112,6 +112,16 @@ void TLV320::bypass(bool bypassVar){
     cmd[0] = ANALOG_AUDIO_PATH_CONTROL;         //set address
     mI2c_.write(mAddr, cmd, 2);                 //send
 }
+
+void TLV320::openMicInput(bool sidetoneOn)
+{
+	cmd[0] = ANALOG_AUDIO_PATH_CONTROL;
+	cmd[0] |= sidetoneOn;						//sidetone 0db;
+	cmd[1] = 0;
+	cmd[1] = (1<<4) | (0<<3) | (1<<2) | (0<<1) | 1; //dac enabled, bypass disabled, input microphone boost 20dB
+	mI2c_.write(mAddr, cmd, 2);
+}
+
 /******************************************************
  * Function name:   mute()
  *
@@ -148,6 +158,7 @@ void TLV320::power(bool powerUp){
  * Description:     Switch on individual devices on TLV320
  *
  * Parameters:      int device
+ *					for our use(Output on, mic in on): 000000001=0x01
  * Returns:         none
 ******************************************************/
 void TLV320::power(int device){
@@ -277,6 +288,17 @@ void TLV320::stop(void){
 void TLV320::write(int *buffer, int from, int length){
     mI2s_.write(buffer, from, length);
 }
+
+int TLV320::get_txFIFO_level()
+{
+	return (mI2s_.status() >> 16) & 0x0F;
+}
+
+int TLV320::get_rxFIFO_level()
+{
+	return (mI2s_.status() >> 8) & 0x0F;
+}
+
 /******************************************************
  * Function name:   read()
  *

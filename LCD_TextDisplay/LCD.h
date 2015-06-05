@@ -1,9 +1,4 @@
-#include "MBED.h"
-
-
-
-
-
+#include "mbed.h"
 
 class LCD {
 public:					//Strobe			//CLK					//Data

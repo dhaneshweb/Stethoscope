@@ -95,6 +95,10 @@ class TLV320
          *
          */
         void stop(void);
+		
+		int get_txFIFO_level();
+		int get_rxFIFO_level();
+		
         /** Write [length] 32 bit words in buffer to I2S port
          *
          * @param *buffer Address of buffer to be written
@@ -133,7 +137,7 @@ class TLV320
         * Parameters accept a value, where 0.0 < parameter < 1.0 and where 0.0 maps to -34.5dB 
         * and 1.0 maps to +12dB (0.74 = 0 dB default).
         */
-        int inputVolume(float leftVolumeIn, float rightVolumeIn);
+        int lineInputVolume(float leftVolumeIn, float rightVolumeIn);
         /** Headphone out volume control
         *
         * @param leftVolumeOut Left line-out volume
@@ -148,6 +152,9 @@ class TLV320
         * @param bypassVar Route analogue audio direct from line in to headphone out
         */
         void bypass(bool bypassVar);
+		
+		void openMicInput(bool sidetoneOn);
+		
         /**Digital audio path control
         *
         * @param softMute Mute output
@@ -198,6 +205,12 @@ class TLV320
         #define CLOCK_USB           1
         #define MCLK                0
         #define MCLK_DIV2           1
+		
+		#define POWER_BASE			(0x0F)
+		#define DAC_ON				0x07
+		#define ADC_ON				0x0B
+		#define MIC_ON				0x0D
+		#define LIN_ON				0x0E
 };
 
 #endif

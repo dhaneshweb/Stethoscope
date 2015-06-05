@@ -146,7 +146,7 @@
             <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>12</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -160,7 +160,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\CMSIS_AGDI.dll</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -170,9 +170,9 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4105</DriverSelection>
+            <DriverSelection>4104</DriverSelection>
           </Flash1>
-          <bUseTDR>0</bUseTDR>
+          <bUseTDR>1</bUseTDR>
           <Flash2>BIN\CMSIS_AGDI.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -362,9 +362,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--gnu --no_rtti </MiscControls>
-              <Define> TARGET_LPC1768,  TARGET_M3,  TARGET_CORTEX_M,  TARGET_NXP,  TARGET_LPC176X,  TARGET_MBED_LPC1768,  TOOLCHAIN_ARM_STD,  TOOLCHAIN_ARM,  __CORTEX_M3,  ARM_MATH_CM3,  MBED_BUILD_TIMESTAMP=1432820228.74,  __MBED__=1,  __ASSERT_MSG, </Define>
+              <Define>TARGET_LPC1768,  TARGET_M3,  TARGET_CORTEX_M,  TARGET_NXP,  TARGET_LPC176X,  TARGET_MBED_LPC1768,  TOOLCHAIN_ARM_STD,  TOOLCHAIN_ARM,  __CORTEX_M3,  ARM_MATH_CM3,  MBED_BUILD_TIMESTAMP=1432820228.74,  __MBED__=1,  __ASSERT_MSG,</Define>
               <Undefine></Undefine>
-              <IncludePath>  .;  USBDevice;  USBDevice/USBDevice;  USBDevice/USBMSD;  USBDevice/USBSerial;  USBDevice/USBMIDI;  USBDevice/USBHID;  USBDevice/USBAudio;  TLV320;  LCD_TextDisplay;  mbed;  mbed/TARGET_LPC1768;  mbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD;  mbed/TARGET_LPC1768/TARGET_NXP;  mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X;  mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768;  SDFileSystem;  SDFileSystem/FATFileSystem;  SDFileSystem/FATFileSystem/ChaN</IncludePath>
+              <IncludePath>.;USBDevice;USBDevice/USBDevice;USBDevice/USBMSD;USBDevice/USBSerial;USBDevice/USBMIDI;USBDevice/USBHID;USBDevice/USBAudio;TLV320;LCD_TextDisplay;mbed;mbed/TARGET_LPC1768;mbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD;mbed/TARGET_LPC1768/TARGET_NXP;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768;SDFileSystem;SDFileSystem/FATFileSystem;SDFileSystem/FATFileSystem/ChaN;./I2SSlave</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -413,7 +413,7 @@
             
               mbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD/mbed.ar
             
-            </Misc>
+</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -428,75 +428,15 @@
               <FileType>8</FileType>
               <FilePath>main.cpp</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>USB</GroupName>
+          <Files>
             <File>
-              <FileName>USBHAL_RZ_A1H.cpp</FileName>
+              <FileName>USBAudio.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_RZ_A1H.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_STM32F4.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_STM32F4.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_LPC17.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_LPC17.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_Maxim.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_Maxim.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_LPC11U.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_LPC11U.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_LPC40.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_LPC40.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBDevice.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBDevice.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBHAL_KL25Z.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBDevice/USBHAL_KL25Z.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBMSD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBMSD/USBMSD.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBCDC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBSerial/USBCDC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBSerial.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBSerial/USBSerial.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBMIDI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBMIDI/USBMIDI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBMouseKeyboard.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBHID/USBMouseKeyboard.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>USBKeyboard.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>USBDevice/USBHID/USBKeyboard.cpp</FilePath>
+              <FilePath>USBDevice/USBAudio/USBAudio.cpp</FilePath>
             </File>
             <File>
               <FileName>USBHID.cpp</FileName>
@@ -509,29 +449,114 @@
               <FilePath>USBDevice/USBHID/USBMouse.cpp</FilePath>
             </File>
             <File>
-              <FileName>USBAudio.cpp</FileName>
+              <FileName>USBMIDI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>USBDevice/USBAudio/USBAudio.cpp</FilePath>
+              <FilePath>USBDevice/USBMIDI/USBMIDI.cpp</FilePath>
             </File>
             <File>
-              <FileName>TLV320.cpp</FileName>
+              <FileName>USBKeyboard.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>TLV320/TLV320.cpp</FilePath>
+              <FilePath>USBDevice/USBHID/USBKeyboard.cpp</FilePath>
             </File>
             <File>
-              <FileName>main.cpp</FileName>
+              <FileName>USBMouseKeyboard.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>LCD_TextDisplay/main.cpp</FilePath>
+              <FilePath>USBDevice/USBHID/USBMouseKeyboard.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_KL25Z.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_KL25Z.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBSerial.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBSerial/USBSerial.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBCDC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBSerial/USBCDC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBMSD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBMSD/USBMSD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBDevice.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBDevice.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_LPC11U.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_LPC11U.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_LPC40.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_LPC40.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_Maxim.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_Maxim.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_STM32F4.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_STM32F4.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_LPC17.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_LPC17.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBHAL_RZ_A1H.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>USBDevice/USBDevice/USBHAL_RZ_A1H.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LCD</GroupName>
+          <Files>
+            <File>
+              <FileName>LCD_main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\LCD_TextDisplay\LCD_main.cpp</FilePath>
             </File>
             <File>
               <FileName>LCD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>LCD_TextDisplay/LCD.cpp</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SD</GroupName>
+          <Files>
             <File>
-              <FileName>SDFileSystem.cpp</FileName>
+              <FileName>ccsbcs.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>SDFileSystem/SDFileSystem.cpp</FilePath>
+              <FilePath>SDFileSystem/FATFileSystem/ChaN/ccsbcs.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ff.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>SDFileSystem/FATFileSystem/ChaN/ff.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>SDFileSystem/FATFileSystem/ChaN/diskio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FATFileHandle.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>SDFileSystem/FATFileSystem/FATFileHandle.cpp</FilePath>
             </File>
             <File>
               <FileName>FATDirHandle.cpp</FileName>
@@ -544,24 +569,24 @@
               <FilePath>SDFileSystem/FATFileSystem/FATFileSystem.cpp</FilePath>
             </File>
             <File>
-              <FileName>FATFileHandle.cpp</FileName>
+              <FileName>SDFileSystem.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>SDFileSystem/FATFileSystem/FATFileHandle.cpp</FilePath>
+              <FilePath>SDFileSystem/SDFileSystem.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Audio</GroupName>
+          <Files>
+            <File>
+              <FileName>I2SSlave.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\I2SSlave\I2SSlave.cpp</FilePath>
             </File>
             <File>
-              <FileName>diskio.cpp</FileName>
+              <FileName>TLV320.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>SDFileSystem/FATFileSystem/ChaN/diskio.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ff.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>SDFileSystem/FATFileSystem/ChaN/ff.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ccsbcs.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>SDFileSystem/FATFileSystem/ChaN/ccsbcs.cpp</FilePath>
+              <FilePath>.\TLV320\TLV320.cpp</FilePath>
             </File>
           </Files>
         </Group>
