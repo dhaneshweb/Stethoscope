@@ -87,5 +87,4 @@ void LCD::Print_String(char* Pbuffer,char line_num, char offset)
         WriteLCDData(Pbuffer[i], pos+i);  
         i++;    
     }
-	}
-	
+}
