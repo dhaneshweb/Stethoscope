@@ -116,7 +116,7 @@ void TLV320::bypass(bool bypassVar){
 void TLV320::openMicInput(bool sidetoneOn)
 {
 	cmd[0] = ANALOG_AUDIO_PATH_CONTROL;
-	cmd[0] |= sidetoneOn;						//sidetone 0db;
+	//cmd[0] |= sidetoneOn;						//sidetone 0db;
 	cmd[1] = 0;
 	cmd[1] = (1<<4) | (0<<3) | (1<<2) | (0<<1) | 1; //dac enabled, bypass disabled, input microphone boost 0dB
 	mI2c_.write(mAddr, cmd, 2);

@@ -29,5 +29,5 @@ int AverageFilter::filter_buffer_average()
 	{
 		sum += filterBuffer[i];
 	}
-	return sum/filterLength;
+	return sum /filterLength;
 }
