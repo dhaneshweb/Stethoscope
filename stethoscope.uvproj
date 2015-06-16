@@ -428,6 +428,21 @@
               <FileType>8</FileType>
               <FilePath>main.cpp</FilePath>
             </File>
+            <File>
+              <FileName>AverageFilter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\AverageFilter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalResource.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\GlobalResource.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SoundBuffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\SoundBuffer.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
