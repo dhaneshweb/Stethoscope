@@ -8,3 +8,6 @@ build
 *.ilb
 /JLinkLog.txt
 /JLinkSettings.ini
+*.aux
+*.log
+*.gz
