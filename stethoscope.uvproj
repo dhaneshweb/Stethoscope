@@ -364,7 +364,7 @@
               <MiscControls>--gnu --no_rtti </MiscControls>
               <Define>TARGET_LPC1768,  TARGET_M3,  TARGET_CORTEX_M,  TARGET_NXP,  TARGET_LPC176X,  TARGET_MBED_LPC1768,  TOOLCHAIN_ARM_STD,  TOOLCHAIN_ARM,  __CORTEX_M3,  ARM_MATH_CM3,  MBED_BUILD_TIMESTAMP=1432820228.74,  __MBED__=1,  __ASSERT_MSG,</Define>
               <Undefine></Undefine>
-              <IncludePath>.;USBDevice;USBDevice/USBDevice;USBDevice/USBMSD;USBDevice/USBSerial;USBDevice/USBMIDI;USBDevice/USBHID;USBDevice/USBAudio;TLV320;LCD_TextDisplay;mbed;mbed/TARGET_LPC1768;mbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD;mbed/TARGET_LPC1768/TARGET_NXP;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768;SDFileSystem;SDFileSystem/FATFileSystem;SDFileSystem/FATFileSystem/ChaN;./I2SSlave</IncludePath>
+              <IncludePath>.;USBDevice;USBDevice/USBDevice;USBDevice/USBMSD;USBDevice/USBSerial;USBDevice/USBMIDI;USBDevice/USBHID;USBDevice/USBAudio;TLV320;LCD_TextDisplay;mbed;mbed/TARGET_LPC1768;mbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD;mbed/TARGET_LPC1768/TARGET_NXP;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X;mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768;SDFileSystem;SDFileSystem/FATFileSystem;SDFileSystem/FATFileSystem/ChaN;./I2SSlave;./Adafruit_GFX</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -427,6 +427,21 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>AverageFilter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\AverageFilter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalResource.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\GlobalResource.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SoundBuffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\SoundBuffer.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -587,6 +602,21 @@
               <FileName>TLV320.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\TLV320\TLV320.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Screen</GroupName>
+          <Files>
+            <File>
+              <FileName>Adafruit_GFX.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Adafruit_GFX\Adafruit_GFX.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Adafruit_SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Adafruit_GFX\Adafruit_SSD1306.cpp</FilePath>
             </File>
           </Files>
         </Group>

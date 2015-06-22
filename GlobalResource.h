@@ -16,6 +16,9 @@ extern DigitalOut led1;
 extern DigitalOut led2;
 extern SDFileSystem sd;
 extern Ticker ticker;
-extern SoundBuffer soundBuffer;
+
+extern int channels;
+extern int wordWidth;
+extern int sampleRate;
 
 #endif

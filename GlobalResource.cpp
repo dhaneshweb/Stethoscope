@@ -6,4 +6,6 @@ DigitalOut led1(P2_7);
 DigitalOut led2(P2_8);
 SDFileSystem sd(P0_18, P0_17, P0_15, P0_16, "sd");
 Ticker ticker;
-SoundBuffer soundBuffer;
+int channels = 1;
+int wordWidth = 16;
+int sampleRate = 32000;

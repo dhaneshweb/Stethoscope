@@ -3,31 +3,18 @@
 
 #include "mbed.h"
 
-class SoundBuffer
-{
-public:
-	SoundBuffer();
+void init_SoundBuffer();
+void write_sound_input(int val);
+void get_sound_output(int * outBuffer, int count);
+void start_save(FILE * fp);
 
-	void write_sound_input(int val);
-	void get_sound_output(int * outBuffer, int count);
+void start_SoundBuffer();
+void stop_SoundBuffer();
+	
+void write_save_header(FILE * fp);
+void complete_save_header(FILE * fp);
 
-	void start_save(FILE * fp);
-
-	void start() { isRecording = true; }
-	void stop() { isRecording = false; }
-private:
-	static const int readLength = 4096;
-	static const int bufferMask = readLength - 1;
-
-	int circularBuffer[readLength];
-
-	volatile bool isRecording;
-	volatile int playbackTheta;
-	volatile int saveTheta;
-
-	int readPointer;
-	int writePointer;
-	int savePointer;
-};
+int get_MaxSaveTheta();
+int get_saveSize();
 
 #endif
