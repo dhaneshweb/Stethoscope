@@ -1,7 +1,7 @@
 \documentclass[16pt,a4paper]{article}
 
 \usepackage{fontspec}
-\setmainfont[BoldFont=黑体]{方正新书宋简体}          
+\setmainfont[BoldFont=黑体]{宋体}          
 \XeTeXlinebreaklocale "zh"                    
 \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt  
 
@@ -14,6 +14,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
 
 \usepackage{geometry}
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=4cm}
@@ -76,20 +77,42 @@
 图中FB2 采用120R@100MHz的磁珠将模拟地与数字地相连，可以避免数字部分对模拟部分的干扰。
 \subsection{模拟前端和数据转换}
 模拟前端和数据转换采用TI Audio Codec TLV320AIC23B为核心，辅以外部电路，实现声音信号和数字信号的双向转换。
+
 \subsubsection{话筒输入}
+
+我们采用驻极体话筒采集听诊器中的声音信号。驻极体话筒是可以看做一个已经连有输入的MOS管。
+其等效电路如下：
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.5]{mic.jpg}
+\caption{话筒等效电路} 
+\end{figure}
+
+驻极体话筒选用了松下WM62A话筒，一方面是由于其物理尺寸较小，适合放入听诊器中，另一方面是由于其在人耳可以听到的频率范围(20Hz~20kHz)中优良的陪你率响应特性：
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 1]{MICFR.png}
+\caption{WM62A频率响应} 
+\end{figure}
+
+驻极体话筒的第一级放大电路是典型的共源放大电路：
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.8]{Mic2.png}
+\caption{话筒输入电路} 
+\end{figure}
+
+MICBIAS为电源，它由TLV320输出，为专门用于话筒MOS管放大的低噪声偏置电压MICBIAS，可以进一步隔离电源纹波的影响。R2为共源放大电路中的$R_{s}$，通过调节R2可以调节输入信号的第一级放大增益。
+输出电压经过经C1耦合后输入CODEC，下图为CODEC内部的放大电路：
 \begin{figure}[H]
 \centering
 \includegraphics[scale = 1]{Mic1.png}
-\caption{话筒输入电路} 
+\caption{集成次级放大滤波电路} 
 \end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{Mic2.png}
-\caption{话筒输入电路} 
-\end{figure}
-
-芯片输出话筒偏置电压，经R2供给话筒。话筒将声音转换为变化的电压，经C1耦合输入CODEC。通过调节R2可以调节输入信号的第一级放大增益。
+第一级运放进行滤波和放大，在通带构成了一个放大倍数为5倍的放大电路，同时对20kHz以上的高频进行滤波，所以在设计时没有增加外部滤波电路。
 
 \subsubsection{耳机输出}
 \begin{figure}[H]
@@ -172,10 +195,36 @@ PCB设计采用Altium Designer 设计，按照通常混合信号系统的设计�
 
 
 \section{软件设计}
-
-\section{开发时间节点}
+使用的开源库：
+\begin{enumerate}
+\item 软件设计中使用了ARM开发的基础库 \href{https://developer.mbed.org/users/mbed_official/code/mbed/}{mbed}。
+\item 二次开发了Daniel Worrall 开发的 \href{https://developer.mbed.org/cookbook/TLV320AIC23B}{TLV320驱动库}，增加了模拟输入功能以及对应的芯片配置。
+\item 使用了Daniel Worrall 开发的 \href{https://developer.mbed.org/users/d_worrall/code/I2SSlave/}{I2S Slave协议库}和 Giles Barton-Owen开发的 \href{https://developer.mbed.org/users/p07gbar/code/I2S/}{I2S Master协议库}用于和CODEC芯片TLV320的通信。
+\end{enumerate}
+所有的代码都发布在\href{https://github.com/gjc13/Stethoscope}{开源社区github}上。
 
 \section{测试效果}
+在附件中包含了录下的心跳声音，由于codec已经有比较大的输出放大倍数，所以录音音量较小，在电脑上听时需要调高音量。
+我们对采集到的声音在电脑上使用Matlab进行分析，得到的频谱图如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 1]{spectrogram.png}
+\caption{心跳声音频谱图} 
+\end{figure}
+可以明显看到第一心音和第二心音的不同以及一1Hz左右反复出现的心跳信号。\linebreak
+呼吸音和心跳音在实际测试中都没有超过2kHz，所以我们考虑之后在输入级增加低通滤波电路。
 
-\section{项目总结}
+\section{阶段总结与展望}
+\subsection{取得的成果}
+\begin{enumerate}
+\item 设计了整体的数模混合的听诊器声音采集系统
+\item 完成了所有的芯片的软硬件调试工作
+\item 进行了初步的信号采集与分析
+\end{enumerate}
+\subsection{之后的工作与展望}
+\begin{enumerate}
+\item 根据听诊器声音信号的特点，在前级进一步添加截止频率在2kHz左右的低通滤波电路以减小噪声。
+\item 进一步开发心跳检测呼吸检测等功能。
+\end{enumerate}
+
 \end{document}
