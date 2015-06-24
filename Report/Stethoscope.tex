@@ -33,9 +33,35 @@
 \thispagestyle{empty}
 \newpage
 \section{简介}
+\subsection{设计目的}
+听诊器是一种常用的医疗设备，在初步诊断中有重要的作用。传统的听诊器对于人体内部的声音型号是一个固定的低通系统，具有很高的信噪比但是通带与放大倍数都不可调。同时也不能够记录听到的声音用于回放进行详细诊断以及教学。针对这些问题，电子听诊器被设计出来进行放大，滤波与录音。\linebreak
+在本次课程设计中我们自己搭建了一个电子听诊器。完成硬件设计、调试以及软件编程的工作。
+\subsection{基本功能}
+\begin{enumerate}
+\item 能够采集到人体内部的声音信号进行放大与回放
+\item 能够存储听诊器中听到的声音
+\end{enumerate}
+
+\subsection{可以拓展的功能}
+\begin{enumerate}
+\item 提供不同的滤波模式用于不同种声音的采集
+\item 实现心跳次数的自动测量
+\item 能够实现在呼吸音和心跳音混合的情况下提取并放大较弱的呼吸音。
+\end{enumerate}
+这些功能由于时间所限没有完成，其中不同滤波模式可以考虑增加可调滤波电路或者使用数字滤波器完成，而之后的两个功能主要是信号处理的内容，与模拟电子部分关系不大。
 
 \section{系统设计}
-
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{system.png}
+\caption{系统总体框图}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{board.jpg}
+\caption{实际产品图片}
+\end{figure}
+物理采集系统直接使用了购买的听诊器中的听筒与导管，放入驻极体话筒后密封。导管本身就带有了物理放大的功能。之后对驻极体话筒采集到的信号使用共源放大电路进行放大。之后使用专用音频CODEC进行采样以及模拟输出，也就是ADC/DAC。对于已经数字化的信号使用微控制器NXP1768进行处理，可以进行保存，回放，滤波等信号处理工作。
 
 \section{硬件设计细节}
 \subsection{电源部分}
@@ -89,7 +115,7 @@
 \caption{话筒等效电路} 
 \end{figure}
 
-驻极体话筒选用了松下WM62A话筒，一方面是由于其物理尺寸较小，适合放入听诊器中，另一方面是由于其在人耳可以听到的频率范围(20Hz~20kHz)中优良的陪你率响应特性：
+驻极体话筒选用了松下WM62A话筒，一方面是由于其物理尺寸较小，适合放入听诊器中，另一方面是由于其在人耳可以听到的频率范围(20Hz~20kHz)中优良的频率响应特性：
 
 \begin{figure}[H]
 \centering
@@ -201,7 +227,9 @@ PCB设计采用Altium Designer 设计，按照通常混合信号系统的设计�
 \item 二次开发了Daniel Worrall 开发的 \href{https://developer.mbed.org/cookbook/TLV320AIC23B}{TLV320驱动库}，增加了模拟输入功能以及对应的芯片配置。
 \item 使用了Daniel Worrall 开发的 \href{https://developer.mbed.org/users/d_worrall/code/I2SSlave/}{I2S Slave协议库}和 Giles Barton-Owen开发的 \href{https://developer.mbed.org/users/p07gbar/code/I2S/}{I2S Master协议库}用于和CODEC芯片TLV320的通信。
 \end{enumerate}
-所有的代码都发布在\href{https://github.com/gjc13/Stethoscope}{开源社区github}上。
+
+
+所有的代码都发布在\href{https://github.com/gjc13/Stethoscope}{开源社区github}上。由于是模拟电子技术的报告，我们就不详述软件设计的细节了。
 
 \section{测试效果}
 在附件中包含了录下的心跳声音，由于codec已经有比较大的输出放大倍数，所以录音音量较小，在电脑上听时需要调高音量。
@@ -211,8 +239,11 @@ PCB设计采用Altium Designer 设计，按照通常混合信号系统的设计�
 \includegraphics[scale = 1]{spectrogram.png}
 \caption{心跳声音频谱图} 
 \end{figure}
-可以明显看到第一心音和第二心音的不同以及一1Hz左右反复出现的心跳信号。\linebreak
-呼吸音和心跳音在实际测试中都没有超过2kHz，所以我们考虑之后在输入级增加低通滤波电路。
+可以明显看到第一心音和第二心音的不同以及1Hz左右反复出现的心跳信号。实测发现呼吸音和心跳音在实际测试中都没有超过2kHz，所以我们考虑之后在输入级增加低通滤波电路以进一步提高信噪比。
+
+
+
+和传统的听诊器对比，高频响应和放大倍数都有了明显提升，原来较弱的呼气音可以清晰的听到。但是信噪比不及传统听诊器，这是由于电路内部引入了不可避免的噪声，还需要进行电路设计的优化和数字滤波的处理来进一步增强信噪比。
 
 \section{阶段总结与展望}
 \subsection{取得的成果}
