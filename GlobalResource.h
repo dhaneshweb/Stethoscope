@@ -3,7 +3,6 @@
 
 #include "mbed.h"
 #include "USBSerial.h"
-#include "LCD.h"
 #include "stdio.h"
 #include "TLV320.h"
 #include "SDFileSystem.h"
