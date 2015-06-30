@@ -1,6 +1,6 @@
 Dependencies for Project 'stethoscope', Target 'mbed NXP LPC1768': (DO NOT MODIFY !)
-F (main.cpp)(0x55924043)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\main.o --omf_browse .\build\main.crf --depend .\build\main.d)
-I (GlobalResource.h)(0x559240BC)
+F (main.cpp)(0x55926E78)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\main.o --omf_browse .\build\main.crf --depend .\build\main.d)
+I (GlobalResource.h)(0x55924EF5)
 I (mbed\mbed.h)(0x557C1078)
 I (mbed\platform.h)(0x557C1078)
 I (mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768/device.h)(0x557C1078)
@@ -104,11 +104,38 @@ I (SDFileSystem/FATFileSystem/ChaN/integer.h)(0x557C1077)
 I (SDFileSystem/FATFileSystem/ChaN/ffconf.h)(0x557C1077)
 I (USBDevice/USBMSD/USBMSD.h)(0x557C1078)
 I (SoundBuffer.h)(0x5587EFE8)
+I (Display.h)(0x55926D50)
+I (./Adafruit_GFX/Adafruit_SSD1306.h)(0x55926535)
+I (./Adafruit_GFX/Adafruit_GFX.h)(0x557C1077)
+I (./Adafruit_GFX/Adafruit_GFX_Config.h)(0x55926ABF)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_defs.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_math.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cmath)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cfloat)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\float.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\climits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\memory)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\new)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\exception)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\utility)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterbase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_mutex.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_algobase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterator.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_dispatch.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_error.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\algorithm)(0x53463A44)
 I (AverageFilter.h)(0x55924043)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector.CC)(0x53463A44)
 F (.\AverageFilter.cpp)(0x557C4623)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\averagefilter.o --omf_browse .\build\averagefilter.crf --depend .\build\averagefilter.d)
 I (AverageFilter.h)(0x55924043)
-F (.\GlobalResource.cpp)(0x5587EFE8)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\globalresource.o --omf_browse .\build\globalresource.crf --depend .\build\globalresource.d)
-I (GlobalResource.h)(0x559240BC)
+F (.\GlobalResource.cpp)(0x55926AD4)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\globalresource.o --omf_browse .\build\globalresource.crf --depend .\build\globalresource.d)
+I (GlobalResource.h)(0x55924EF5)
 I (mbed\mbed.h)(0x557C1078)
 I (mbed\platform.h)(0x557C1078)
 I (mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768/device.h)(0x557C1078)
@@ -212,6 +239,33 @@ I (SDFileSystem/FATFileSystem/ChaN/integer.h)(0x557C1077)
 I (SDFileSystem/FATFileSystem/ChaN/ffconf.h)(0x557C1077)
 I (USBDevice/USBMSD/USBMSD.h)(0x557C1078)
 I (SoundBuffer.h)(0x5587EFE8)
+I (Display.h)(0x55926D50)
+I (./Adafruit_GFX/Adafruit_SSD1306.h)(0x55926535)
+I (./Adafruit_GFX/Adafruit_GFX.h)(0x557C1077)
+I (./Adafruit_GFX/Adafruit_GFX_Config.h)(0x55926ABF)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_defs.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_math.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cmath)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cfloat)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\float.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\climits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\memory)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\new)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\exception)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\utility)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterbase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_mutex.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_algobase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterator.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_dispatch.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_error.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\algorithm)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector.CC)(0x53463A44)
 F (.\SoundBuffer.cpp)(0x5587EFE8)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\soundbuffer.o --omf_browse .\build\soundbuffer.crf --depend .\build\soundbuffer.d)
 I (SoundBuffer.h)(0x5587EFE8)
 I (mbed\mbed.h)(0x557C1078)
@@ -297,7 +351,7 @@ I (mbed\gpio_irq_api.h)(0x557C1078)
 I (mbed\wait_api.h)(0x557C1078)
 I (mbed\sleep_api.h)(0x557C1078)
 I (mbed\rtc_time.h)(0x557C1078)
-I (GlobalResource.h)(0x559240BC)
+I (GlobalResource.h)(0x55924EF5)
 I (USBDevice/USBSerial/USBSerial.h)(0x557C1078)
 I (USBDevice/USBSerial/USBCDC.h)(0x557C1078)
 I (USBDevice/USBDevice/USBEndpoints.h)(0x557C1078)
@@ -317,6 +371,33 @@ I (SDFileSystem/FATFileSystem/ChaN/ff.h)(0x557C1077)
 I (SDFileSystem/FATFileSystem/ChaN/integer.h)(0x557C1077)
 I (SDFileSystem/FATFileSystem/ChaN/ffconf.h)(0x557C1077)
 I (USBDevice/USBMSD/USBMSD.h)(0x557C1078)
+I (Display.h)(0x55926D50)
+I (./Adafruit_GFX/Adafruit_SSD1306.h)(0x55926535)
+I (./Adafruit_GFX/Adafruit_GFX.h)(0x557C1077)
+I (./Adafruit_GFX/Adafruit_GFX_Config.h)(0x55926ABF)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_defs.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\config.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_math.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cmath)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\cfloat)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\float.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\climits)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\limits.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\memory)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\new)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\exception)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\utility)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterbase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_mutex.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_algobase.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_iterator.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_dispatch.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\rw\_error.h)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\algorithm)(0x53463A44)
+I (C:\Keil\UV5\ARM\ARMCC\include\vector.CC)(0x53463A44)
 F (USBDevice/USBAudio/USBAudio.cpp)(0x557C1077)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\usbaudio.o --omf_browse .\build\usbaudio.crf --depend .\build\usbaudio.d)
 I (C:\Keil\UV5\ARM\ARMCC\include\stdint.h)(0x53463A44)
 I (USBDevice/USBAudio/USBAudio.h)(0x557C1077)
@@ -1871,9 +1952,9 @@ I (mbed\wait_api.h)(0x557C1078)
 I (mbed\sleep_api.h)(0x557C1078)
 I (mbed\rtc_time.h)(0x557C1078)
 I (Adafruit_GFX\Adafruit_GFX.h)(0x557C1077)
-I (Adafruit_GFX\Adafruit_GFX_Config.h)(0x557C1077)
+I (Adafruit_GFX\Adafruit_GFX_Config.h)(0x55926ABF)
 I (Adafruit_GFX\glcdfont.h)(0x557C1077)
-F (.\Adafruit_GFX\Adafruit_SSD1306.cpp)(0x557C1077)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\adafruit_ssd1306.o --omf_browse .\build\adafruit_ssd1306.crf --depend .\build\adafruit_ssd1306.d)
+F (.\Adafruit_GFX\Adafruit_SSD1306.cpp)(0x55925847)(--cpp -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I. -IUSBDevice -IUSBDevice/USBDevice -IUSBDevice/USBMSD -IUSBDevice/USBSerial -IUSBDevice/USBMIDI -IUSBDevice/USBHID -IUSBDevice/USBAudio -ITLV320 -ILCD_TextDisplay -Imbed -Imbed/TARGET_LPC1768 -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/TARGET_LPC1768/TARGET_NXP -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768 -ISDFileSystem -ISDFileSystem/FATFileSystem -ISDFileSystem/FATFileSystem/ChaN -I./I2SSlave -I./Adafruit_GFX --gnu --no_rtti -I C:\Keil\UV5\ARM\RV31\INC-I C:\Keil\UV5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\Keil\UV5\ARM\Inc\NXP\LPC17xx-DTARGET_LPC1768 -DTARGET_M3 -DTARGET_CORTEX_M -DTARGET_NXP -DTARGET_LPC176X -DTARGET_MBED_LPC1768 -DTOOLCHAIN_ARM_STD -DTOOLCHAIN_ARM -D__CORTEX_M3 -DARM_MATH_CM3 -DMBED_BUILD_TIMESTAMP="1432820228.74" -D__MBED__="1" -D__ASSERT_MSG-o .\build\adafruit_ssd1306.o --omf_browse .\build\adafruit_ssd1306.crf --depend .\build\adafruit_ssd1306.d)
 I (mbed\mbed.h)(0x557C1078)
 I (mbed\platform.h)(0x557C1078)
 I (mbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/TARGET_MBED_LPC1768/device.h)(0x557C1078)
@@ -1957,9 +2038,9 @@ I (mbed\gpio_irq_api.h)(0x557C1078)
 I (mbed\wait_api.h)(0x557C1078)
 I (mbed\sleep_api.h)(0x557C1078)
 I (mbed\rtc_time.h)(0x557C1078)
-I (Adafruit_GFX\Adafruit_SSD1306.h)(0x557C1077)
+I (Adafruit_GFX\Adafruit_SSD1306.h)(0x55926535)
 I (Adafruit_GFX\Adafruit_GFX.h)(0x557C1077)
-I (Adafruit_GFX\Adafruit_GFX_Config.h)(0x557C1077)
+I (Adafruit_GFX\Adafruit_GFX_Config.h)(0x55926ABF)
 I (C:\Keil\UV5\ARM\ARMCC\include\vector)(0x53463A44)
 I (C:\Keil\UV5\ARM\ARMCC\include\limits)(0x53463A44)
 I (C:\Keil\UV5\ARM\ARMCC\include\rw\_defs.h)(0x53463A44)

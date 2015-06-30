@@ -443,6 +443,11 @@
               <FileType>8</FileType>
               <FilePath>.\SoundBuffer.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Display.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
