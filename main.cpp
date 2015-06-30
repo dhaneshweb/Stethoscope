@@ -22,14 +22,14 @@ int main()
 	
 	audio.power(0x00);
 	audio.openMicInput(true);
-	audio.outputVolume(0.9, 0.9);
+	audio.outputVolume(0.7, 0.7);
     audio.frequency(sampleRate);            //set sample frequency
     audio.format(wordWidth, (2-channels));  //set transfer protocol
     audio.attach(&I2S_Handler);         
 
 	start_SoundBuffer();
     audio.start(BOTH);                  //interrupt come from the I2STXFIFO only
-	ticker.attach(stop, 20);
+	ticker.attach(stop, 5);
 	write_save_header(streamfp);
 	led1 = 1;
 	start_save(streamfp);
