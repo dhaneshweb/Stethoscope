@@ -1,22 +1,10 @@
 #include "SoundBuffer.h"
 #include "GlobalResource.h"
 
-volatile bool isRecording = false;
-volatile int playbackTheta = 0;
-volatile int saveTheta = 0;
-
-int readPointer = 0;
-int writePointer = 0;
-int savePointer = 0;
-int maxSaveTheta = 0;
-int saveSize = 0;
-
-const int readLength = 2048;
-const int bufferMask = readLength - 1;
-
-int circularBuffer[readLength];
-
-void init_SoundBuffer()
+SoundBuffer::SoundBuffer()
+	:isRecording(false), playbackTheta(0), saveTheta(0)
+	,readPointer(0), writePointer(0), maxSaveTheta(0)
+	,saveSize(0), filter(0)
 {
 	for(int i = 0; i < readLength; i++)
 	{
@@ -24,16 +12,39 @@ void init_SoundBuffer()
 	}
 }
 
-void write_sound_input(int val)
+SoundBuffer::SoundBuffer(IFilter * filter_)
+	:isRecording(false), playbackTheta(0), saveTheta(0)
+	,readPointer(0), writePointer(0), maxSaveTheta(0)
+	,saveSize(0), filter(filter_)
+{
+	for(int i = 0; i < readLength; i++)
+	{
+		circularBuffer[i] = 0;
+	}
+}
+
+void SoundBuffer::reset_SoundBuffer()
+{
+	readPointer = 0;
+	writePointer = 0;
+	savePointer = 0;
+	saveSize = 0;
+	for(int i = 0; i < readLength; i++)
+	{
+		circularBuffer[i] = 0;
+	}
+}
+
+void SoundBuffer::write_sound_input(int val)
 {
 	if(!isRecording) return;
-	circularBuffer[writePointer++] = val;
+	circularBuffer[writePointer++] = filter ? filter->push_filter_buffer(val) : val;
 	writePointer &= bufferMask;	
 	playbackTheta++;
 	saveTheta++;
 }
 
-void write_save_header(FILE * fp)
+void SoundBuffer::write_save_header(FILE * fp)
 {
 	/* RIFF WAV header
  * ---------------
@@ -58,7 +69,7 @@ void write_save_header(FILE * fp)
      fwrite(header, 1, 44, fp); 
 }
 
-void get_sound_output(int * outBuffer, int count)
+void SoundBuffer::get_sound_output(int * outBuffer, int count)
 {
 	if(playbackTheta >= count)
 	{
@@ -78,10 +89,11 @@ void get_sound_output(int * outBuffer, int count)
 	}
 }
 
-void start_save(FILE * fp)
+void SoundBuffer::start_save(FILE * fp)
 {
 	static const int writeChunckSize = 8;
 	static short toWrite[writeChunckSize];
+	write_save_header(fp);
 	while(isRecording || saveTheta > 0)
 	{
 		if(saveTheta < writeChunckSize*2 && isRecording) continue;
@@ -96,9 +108,10 @@ void start_save(FILE * fp)
 		maxSaveTheta = saveTheta > maxSaveTheta ? saveTheta : maxSaveTheta;
 		saveSize += sizeof(short) * writeChunckSize;
 	}	
+	complete_save_header(fp);
 }
 
-void complete_save_header(FILE * fp)
+void SoundBuffer::complete_save_header(FILE * fp)
 {
 	saveSize += 36;
     fseek(fp, 4, SEEK_SET);
@@ -108,22 +121,31 @@ void complete_save_header(FILE * fp)
     fwrite(&saveSize, sizeof(int), 1, fp);
 }
 
-void start_SoundBuffer()
+void SoundBuffer::start_SoundBuffer()
 {
 	isRecording = true;
 }
 
-void stop_SoundBuffer()
+void SoundBuffer::stop_SoundBuffer()
 {
 	isRecording = false;
 }
 
-int get_MaxSaveTheta()
+int SoundBuffer::get_MaxSaveTheta()
 {
 	return maxSaveTheta;
 }
 
-int get_saveSize()
+int SoundBuffer::get_saveSize()
 {
 	return saveSize;
+}
+
+void SoundBuffer::set_filter(IFilter * newFilter)
+{
+	filter = newFilter;
+}
+
+SoundBuffer::~SoundBuffer()
+{
 }

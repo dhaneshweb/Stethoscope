@@ -1,12 +1,14 @@
 #ifndef __AVERAGEFILTER_H__	
 #define __AVERAGEFILTER_H__
 
-class AverageFilter
+#include "IFilter.h"
+
+class AverageFilter : public IFilter
 {
 public:
 	AverageFilter();
 	
-	int push_filter_buffer(int val);
+	virtual int push_filter_buffer(int val);
 private:
 	int filter_buffer_average();
 

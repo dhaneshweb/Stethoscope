@@ -1,15 +1,18 @@
 #include "GlobalResource.h"
 #include "AverageFilter.h"
+#include "FIRFilter.h"
 
 void I2S_Handler(void);
 void stop(void);
 
+AverageFilter averageFilter;
+SoundBuffer soundBuffer(&averageFilter);
+
 /* main */
 int main()
 {   
-	FILE * streamfp = fopen("/sd/read_log_2.wav", "w");
-	FILE * fp = fopen("/sd/log.txt", "w");
-    if(streamfp == NULL || fp == NULL)
+	FILE * streamfp = fopen("/sd/beat.wav", "w");
+    if(streamfp == NULL)
 	{                   	//make sure it's been opened
 		led1 = 1;
 		led2 = 1;
@@ -19,6 +22,8 @@ int main()
 	led1 = 1;
 	wait(1);
 	led1 = 0;
+
+	
 	
 	audio.power(0x00);
 	audio.openMicInput(true);
@@ -27,19 +32,31 @@ int main()
     audio.format(wordWidth, (2-channels));  //set transfer protocol
     audio.attach(&I2S_Handler);         
 
-	start_SoundBuffer();
+	soundBuffer.start_SoundBuffer();
     audio.start(BOTH);                  //interrupt come from the I2STXFIFO only
 	ticker.attach(stop, 5);
-	write_save_header(streamfp);
 	led1 = 1;
-	start_save(streamfp);
-	fprintf(fp, "%d", get_saveSize());
+	soundBuffer.start_save(streamfp);
 //	fillBuffer();                           //continually fill circular buffer
 //	myled = 1;
 //	fprintf(logfp, "%ld %d %d \r\n", readCount, before, after);
-	complete_save_header(streamfp);
-	fclose(fp);
 	fclose(streamfp);
+	led2 = 1;
+	led1 = 1;
+	wait(1);
+	
+		
+	FIRFilter filter(50);
+	soundBuffer.set_filter(&filter);
+	
+	streamfp = fopen("/sd/mix.wav", "w");
+	soundBuffer.reset_SoundBuffer();
+	soundBuffer.start_SoundBuffer();
+	audio.start(BOTH);
+	ticker.attach(stop, 5);
+	soundBuffer.start_save(streamfp);
+	fclose(streamfp);
+	
 	while(1)
 	{
 		led2 = 1;
@@ -55,20 +72,20 @@ void I2S_Handler(void)
 	static int readCount = 0;
 	static int outputBuffer[4] = {0, 0, 0, 0};
 	
-	led2 = (readCount>>9) & 0x01;
+	led2 = (readCount>>10) & 0x01;
 	if(audio.get_rxFIFO_level() > 4)
 	{
 		readCount++;
 		audio.read();
 		for(int i=0; i<4; i++)
 		{
-			write_sound_input(filter.push_filter_buffer(audio.rxBuffer[i]));
+			soundBuffer.write_sound_input(filter.push_filter_buffer(audio.rxBuffer[i]));
 		}
 	}
 //	fprintf(logfp, "%d ", audio.get_txFIFO_level());
 	if(audio.get_txFIFO_level() <= 4)
 	{
-		get_sound_output(outputBuffer, 4);
+		soundBuffer.get_sound_output(outputBuffer, 4);
 		audio.write(outputBuffer, 0 ,4);
 	}
 //	fprintf(logfp, "%d ", audio.get_txFIFO_level());
@@ -76,9 +93,11 @@ void I2S_Handler(void)
 
 void stop(void)
 {
-//	led2 = 1;
+	led2 = 0;
+	led1 = 0;
+	wait(1);
 	audio.stop();
-	stop_SoundBuffer();
+	soundBuffer.stop_SoundBuffer();
 }
 
 
