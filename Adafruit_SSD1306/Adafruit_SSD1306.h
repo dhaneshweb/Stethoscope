@@ -16,145 +16,216 @@ BSD license, check license.txt for more information
 All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
-#if ARDUINO >= 100
- #include "Arduino.h"
-#else
- #include "WProgram.h"
-#endif
+/*
+ *  Modified by Neal Horman 7/14/2012 for use in mbed
+ */
 
-#ifdef __SAM3X8E__
- typedef volatile RwReg PortReg;
- typedef uint32_t PortMask;
-#else
-  typedef volatile uint8_t PortReg;
-  typedef uint8_t PortMask;
-#endif
+#ifndef _ADAFRUIT_SSD1306_H_
+#define _ADAFRUIT_SSD1306_H_
 
-#include <SPI.h>
-#include <Adafruit_GFX.h>
+#include "mbed.h"
+#include "Adafruit_GFX.h"
 
-#define BLACK 0
-#define WHITE 1
+#include <vector>
+#include <algorithm>
 
-#define SSD1306_I2C_ADDRESS   0x3C	// 011110+SA0+RW - 0x3C or 0x3D
-// Address for 128x32 is 0x3C
-// Address for 128x64 is 0x3D (default) or 0x3C (if SA0 is grounded)
+class I2CPreInit : public I2C
+{
+public:
+    I2CPreInit(PinName sda, PinName scl) : I2C(sda, scl)
+    {
+        frequency(1000000);
+        start();
+    };
+};
 
-/*=========================================================================
-    SSD1306 Displays
-    -----------------------------------------------------------------------
-    The driver is used in multiple displays (128x64, 128x32, etc.).
-    Select the appropriate display below to create an appropriately
-    sized framebuffer, etc.
-
-    SSD1306_128_64  128x64 pixel display
-
-    SSD1306_128_32  128x32 pixel display
-
-    -----------------------------------------------------------------------*/
-//   #define SSD1306_128_64
-   #define SSD1306_128_32
-/*=========================================================================*/
-
-#if defined SSD1306_128_64 && defined SSD1306_128_32
-  #error "Only one SSD1306 display can be specified at once in SSD1306.h"
-#endif
-#if !defined SSD1306_128_64 && !defined SSD1306_128_32
-  #error "At least one SSD1306 display must be specified in SSD1306.h"
-#endif
-
-#if defined SSD1306_128_64
-  #define SSD1306_LCDWIDTH                  128
-  #define SSD1306_LCDHEIGHT                 64
-#endif
-#if defined SSD1306_128_32
-  #define SSD1306_LCDWIDTH                  128
-  #define SSD1306_LCDHEIGHT                 32
-#endif
-
-#define SSD1306_SETCONTRAST 0x81
-#define SSD1306_DISPLAYALLON_RESUME 0xA4
-#define SSD1306_DISPLAYALLON 0xA5
-#define SSD1306_NORMALDISPLAY 0xA6
-#define SSD1306_INVERTDISPLAY 0xA7
-#define SSD1306_DISPLAYOFF 0xAE
-#define SSD1306_DISPLAYON 0xAF
-
-#define SSD1306_SETDISPLAYOFFSET 0xD3
-#define SSD1306_SETCOMPINS 0xDA
-
-#define SSD1306_SETVCOMDETECT 0xDB
-
-#define SSD1306_SETDISPLAYCLOCKDIV 0xD5
-#define SSD1306_SETPRECHARGE 0xD9
-
-#define SSD1306_SETMULTIPLEX 0xA8
-
-#define SSD1306_SETLOWCOLUMN 0x00
-#define SSD1306_SETHIGHCOLUMN 0x10
-
-#define SSD1306_SETSTARTLINE 0x40
-
-#define SSD1306_MEMORYMODE 0x20
-#define SSD1306_COLUMNADDR 0x21
-#define SSD1306_PAGEADDR   0x22
-
-#define SSD1306_COMSCANINC 0xC0
-#define SSD1306_COMSCANDEC 0xC8
-
-#define SSD1306_SEGREMAP 0xA0
-
-#define SSD1306_CHARGEPUMP 0x8D
+// A DigitalOut sub-class that provides a constructed default state
+class DigitalOut2 : public DigitalOut
+{
+public:
+	DigitalOut2(PinName pin, bool active = false) : DigitalOut(pin) { write(active); };
+	DigitalOut2& operator= (int value) { write(value); return *this; };
+	DigitalOut2& operator= (DigitalOut2& rhs) { write(rhs.read()); return *this; };
+	operator int() { return read(); };
+};
 
 #define SSD1306_EXTERNALVCC 0x1
 #define SSD1306_SWITCHCAPVCC 0x2
 
-// Scrolling #defines
-#define SSD1306_ACTIVATE_SCROLL 0x2F
-#define SSD1306_DEACTIVATE_SCROLL 0x2E
-#define SSD1306_SET_VERTICAL_SCROLL_AREA 0xA3
-#define SSD1306_RIGHT_HORIZONTAL_SCROLL 0x26
-#define SSD1306_LEFT_HORIZONTAL_SCROLL 0x27
-#define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
-#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2A
+/** The pure base class for the SSD1306 display driver.
+ *
+ * You should derive from this for a new transport interface type,
+ * such as the SPI and I2C drivers.
+ */
+class Adafruit_SSD1306 : public Adafruit_GFX
+{
+public:
+	Adafruit_SSD1306(PinName RST, uint8_t rawHeight = 64, uint8_t rawWidth = 128)
+		: Adafruit_GFX(rawWidth,rawHeight)
+		, rst(RST,false)
+	{
+		buffer.resize(rawHeight * rawWidth / 8);
+	};
 
-class Adafruit_SSD1306 : public Adafruit_GFX {
- public:
-  Adafruit_SSD1306(int8_t SID, int8_t SCLK, int8_t DC, int8_t RST, int8_t CS);
-  Adafruit_SSD1306(int8_t DC, int8_t RST, int8_t CS);
-  Adafruit_SSD1306(int8_t RST);
+	void begin(uint8_t switchvcc = SSD1306_SWITCHCAPVCC);
+	
+	// These must be implemented in the derived transport driver
+	virtual void command(uint8_t c) = 0;
+	virtual void data(uint8_t c) = 0;
+	virtual void drawPixel(int16_t x, int16_t y, uint16_t color);
 
-  void begin(uint8_t switchvcc = SSD1306_SWITCHCAPVCC, uint8_t i2caddr = SSD1306_I2C_ADDRESS);
-  void ssd1306_command(uint8_t c);
-  void ssd1306_data(uint8_t c);
+	/// Clear the display buffer    
+	void clearDisplay(void);
+	virtual void invertDisplay(bool i);
 
-  void clearDisplay(void);
-  void invertDisplay(uint8_t i);
-  void display();
+	/// Cause the display to be updated with the buffer content.
+	void display();
+	/// Fill the buffer with the AdaFruit splash screen.
+	virtual void splash();
+    
+protected:
+	virtual void sendDisplayBuffer() = 0;
+	DigitalOut2 rst;
 
-  void startscrollright(uint8_t start, uint8_t stop);
-  void startscrollleft(uint8_t start, uint8_t stop);
-
-  void startscrolldiagright(uint8_t start, uint8_t stop);
-  void startscrolldiagleft(uint8_t start, uint8_t stop);
-  void stopscroll(void);
-
-  void dim(uint8_t contrast);
-
-  void drawPixel(int16_t x, int16_t y, uint16_t color);
-
-  virtual void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
-  virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
-
- private:
-  int8_t _i2caddr, _vccstate, sid, sclk, dc, rst, cs;
-  void fastSPIwrite(uint8_t c);
-
-  boolean hwSPI;
-  PortReg *mosiport, *clkport, *csport, *dcport;
-  PortMask mosipinmask, clkpinmask, cspinmask, dcpinmask;
-
-  inline void drawFastVLineInternal(int16_t x, int16_t y, int16_t h, uint16_t color) __attribute__((always_inline));
-  inline void drawFastHLineInternal(int16_t x, int16_t y, int16_t w, uint16_t color) __attribute__((always_inline));
-
+	// the memory buffer for the LCD
+	std::vector<uint8_t> buffer;
 };
+
+
+/** This is the SPI SSD1306 display driver transport class
+ *
+ */
+class Adafruit_SSD1306_Spi : public Adafruit_SSD1306
+{
+public:
+	/** Create a SSD1306 SPI transport display driver instance with the specified DC, RST, and CS pins, as well as the display dimentions
+	 *
+	 * Required parameters
+	 * @param spi - a reference to an initialized SPI object
+	 * @param DC (Data/Command) pin name
+	 * @param RST (Reset) pin name
+	 * @param CS (Chip Select) pin name
+	 *
+	 * Optional parameters
+	 * @param rawHeight - the vertical number of pixels for the display, defaults to 32
+	 * @param rawWidth - the horizonal number of pixels for the display, defaults to 128
+	 */
+	Adafruit_SSD1306_Spi(SPI &spi, PinName DC, PinName RST, PinName CS, uint8_t rawHieght = 32, uint8_t rawWidth = 128)
+	    : Adafruit_SSD1306(RST, rawHieght, rawWidth)
+	    , cs(CS,true)
+	    , dc(DC,false)
+	    , mspi(spi)
+	    {
+		    begin();
+		    splash();
+		    display();
+	    };
+
+	virtual void command(uint8_t c)
+	{
+	    cs = 1;
+	    dc = 0;
+	    cs = 0;
+	    mspi.write(c);
+	    cs = 1;
+	};
+
+	virtual void data(uint8_t c)
+	{
+	    cs = 1;
+	    dc = 1;
+	    cs = 0;
+	    mspi.write(c);
+	    cs = 1;
+	};
+
+protected:
+	virtual void sendDisplayBuffer()
+	{
+		cs = 1;
+		dc = 1;
+		cs = 0;
+
+		for(uint16_t i=0, q=buffer.size(); i<q; i++)
+			mspi.write(buffer[i]);
+
+		if(height() == 32)
+		{
+			for(uint16_t i=0, q=buffer.size(); i<q; i++)
+				mspi.write(0);
+		}
+
+		cs = 1;
+	};
+
+	DigitalOut2 cs, dc;
+	SPI &mspi;
+};
+
+/** This is the I2C SSD1306 display driver transport class
+ *
+ */
+class Adafruit_SSD1306_I2c : public Adafruit_SSD1306
+{
+public:
+	#define SSD_I2C_ADDRESS     0x78
+	/** Create a SSD1306 I2C transport display driver instance with the specified RST pin name, the I2C address, as well as the display dimensions
+	 *
+	 * Required parameters
+	 * @param i2c - A reference to an initialized I2C object
+	 * @param RST - The Reset pin name
+	 *
+	 * Optional parameters
+	 * @param i2cAddress - The i2c address of the display
+	 * @param rawHeight - The vertical number of pixels for the display, defaults to 32
+	 * @param rawWidth - The horizonal number of pixels for the display, defaults to 128
+	 */
+	Adafruit_SSD1306_I2c(I2C &i2c, PinName RST, uint8_t i2cAddress = SSD_I2C_ADDRESS, uint8_t rawHeight = 32, uint8_t rawWidth = 128)
+	    : Adafruit_SSD1306(RST, rawHeight, rawWidth)
+	    , mi2c(i2c)
+	    , mi2cAddress(i2cAddress)
+	    {
+		    begin();
+		    splash();
+		    display();
+	    };
+
+	virtual void command(uint8_t c)
+	{
+		char buff[2];
+		buff[0] = 0; // Command Mode
+		buff[1] = c;
+		mi2c.write(mi2cAddress, buff, sizeof(buff));
+	}
+
+	virtual void data(uint8_t c)
+	{
+		char buff[2];
+		buff[0] = 0x40; // Data Mode
+		buff[1] = c;
+		mi2c.write(mi2cAddress, buff, sizeof(buff));
+	};
+
+protected:
+	virtual void sendDisplayBuffer()
+	{
+		char buff[129];
+		buff[0] = 0x40;
+		for(int page=0;page<8;page++)
+		{
+			command(0xB0+page);
+			command(0x02);
+			command(0x10);
+			for(int col=0;col<128;col++)
+			{
+				buff[1 + col] = buffer[col + page * 128];
+			}
+			mi2c.write(mi2cAddress, buff, sizeof(buff));
+		}
+	};
+
+	I2C &mi2c;
+	uint8_t mi2cAddress;
+};
+
+#endif

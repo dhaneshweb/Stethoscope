@@ -7,22 +7,31 @@ void stop(void);
 /* main */
 int main()
 {   
-		uint16_t x=0,y=0;
-		oled.clearDisplay();
-		oled.display();
-	
-	while(1)
+	oled.setRotation(0);
+	oled.clearDisplay();
+	oled.splash();
+	oled.display();
+	wait(10);
+	oled.display();
+	for(int x=0;x<128;x++)
 	{
-		oled.setTextCursor(x++,y%64);
-		y+=16;
-		oled.printf("%ux%u Display", oled.width(), oled.height());
-		oled.display();
-		led1=!led1;
-		wait(1);
+		for(int y=0;y<64;y++)
+		{
+			oled.drawPixel(x,y,WHITE);
+		}
 	}
+	oled.display();
+	oled.clearDisplay();
+	for(int x=0;x<100;x++)
+	{
+		oled.setTextCursor(0,0);
+		oled.printf("hello  %d \r\n",x);
+		oled.display();
+		wait(0.1);
+	}
+
 	
-    //oled.printf("%ux%u OLED Display\r\n", oled.width(), oled.height());
- 
+//oled.printf("%ux%u OLED Display\r\n", oled.width(), oled.height());
 //	FILE * streamfp = fopen("/sd/read_log_2.wav", "w");
 //	FILE * fp = fopen("/sd/log.txt", "w");
 //    if(streamfp == NULL || fp == NULL)

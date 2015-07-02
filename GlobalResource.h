@@ -8,7 +8,8 @@
 #include "SDFileSystem.h"
 #include "USBMSD.h"
 #include "SoundBuffer.h"
-#include "Display.h"
+#include "Adafruit_SSD1306.h"
+
 
 extern TLV320 audio; 
 //USBSerial serial;
