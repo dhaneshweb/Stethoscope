@@ -22,6 +22,7 @@ All text above, and the splash screen below must be included in any redistributi
 
 #include "mbed.h"
 #include "Adafruit_SSD1306.h"
+#include "logo.h"
 
 #define SSD1306_SETCONTRAST 0x81
 #define SSD1306_DISPLAYALLON_RESUME 0xA4
@@ -47,23 +48,13 @@ All text above, and the splash screen below must be included in any redistributi
 
 void Adafruit_SSD1306::begin(uint8_t vccstate)
 {
-    rst = 1;
-    // VDD (3.3V) goes high at start, lets just chill for a ms
-    wait_ms(1);
-    // bring reset low
-    rst = 0;
-    // wait 10ms
-    wait_ms(10);
-    // bring out of reset
-    rst = 1;
-    // turn on VCC (9V?)
-
-    command(SSD1306_DISPLAYOFF);
+		wait(0.2);
+		command(SSD1306_DISPLAYOFF);
     command(SSD1306_SETDISPLAYCLOCKDIV);
     command(0x80);                                  // the suggested ratio 0x80
 
     command(SSD1306_SETMULTIPLEX);
-    command(_rawHeight-1);
+    command(0x3F);
 
     command(SSD1306_SETDISPLAYOFFSET);
     command(0x0);                                   // no offset
@@ -74,23 +65,14 @@ void Adafruit_SSD1306::begin(uint8_t vccstate)
     command((vccstate == SSD1306_EXTERNALVCC) ? 0x10 : 0x14);
 
     command(SSD1306_MEMORYMODE);
-    command(0x00);                                  // 0x0 act like ks0108
+    command(0x02);                                  // 0x0 act like ks0108
+		
+    command(SSD1306_SEGREMAP | 0x01);
 
-    command(SSD1306_SEGREMAP | 0x1);
-
-    command(SSD1306_COMSCANDEC);
+		command(SSD1306_COMSCANDEC);
 
     command(SSD1306_SETCOMPINS);
-    command(_rawHeight == 32 ? 0x02 : 0x12);        // TODO - calculate based on _rawHieght ?
-
-    command(SSD1306_SETCONTRAST);
-    command(_rawHeight == 32 ? 0x8F : ((vccstate == SSD1306_EXTERNALVCC) ? 0x9F : 0xCF) );
-
-    command(SSD1306_SETPRECHARGE);
-    command((vccstate == SSD1306_EXTERNALVCC) ? 0x22 : 0xF1);
-
-    command(SSD1306_SETVCOMDETECT);
-    command(0x40);
+    command(0x12);   
 
     command(SSD1306_DISPLAYALLON_RESUME);
 
@@ -122,11 +104,10 @@ void Adafruit_SSD1306::drawPixel(int16_t x, int16_t y, uint16_t color)
             break;
     }  
     
-    // x is which column
     if (color == WHITE) 
-        buffer[x+ (y/8)*_rawWidth] |= _BV((y%8));  
+        buffer[x+ (y/8)*_rawWidth] |= (1 << (y&7));  
     else // else black
-        buffer[x+ (y/8)*_rawWidth] &= ~_BV((y%8)); 
+        buffer[x+ (y/8)*_rawWidth] &= ~(1 << (y&7));
 }
 
 void Adafruit_SSD1306::invertDisplay(bool i)
@@ -137,9 +118,6 @@ void Adafruit_SSD1306::invertDisplay(bool i)
 // Send the display buffer out to the display
 void Adafruit_SSD1306::display(void)
 {
-	command(SSD1306_SETLOWCOLUMN | 0x0);  // low col = 0
-	command(SSD1306_SETHIGHCOLUMN | 0x0);  // hi col = 0
-	command(SSD1306_SETSTARTLINE | 0x0); // line #0
 	sendDisplayBuffer();
 }
 
@@ -227,4 +205,10 @@ void Adafruit_SSD1306::splash(void)
 		, buffer.begin()
 		);
 #endif
+		std::copy(
+		&logo[0]
+		, &logo[0] + (_rawHeight == 32 ? sizeof(logo)/2 : sizeof(logo))
+		, buffer.begin()
+		);
+		
 }

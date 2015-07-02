@@ -4,6 +4,7 @@
 
 void I2S_Handler(void);
 void stop(void);
+void testOLED(void);
 
 AverageFilter averageFilter;
 SoundBuffer soundBuffer(&averageFilter);
@@ -23,19 +24,16 @@ int main()
 	wait(1);
 	led1 = 0;
 
-	
-	
 	audio.power(0x00);
 	audio.openMicInput(true);
 	audio.outputVolume(0.7, 0.7);
     audio.frequency(sampleRate);            //set sample frequency
     audio.format(wordWidth, (2-channels));  //set transfer protocol
     audio.attach(&I2S_Handler);         
-
+	
 	soundBuffer.start_SoundBuffer();
     audio.start(BOTH);                  //interrupt come from the I2STXFIFO only
 	ticker.attach(stop, 5);
-	led1 = 1;
 	soundBuffer.start_save(streamfp);
 //	fillBuffer();                           //continually fill circular buffer
 //	myled = 1;
@@ -66,6 +64,7 @@ int main()
 }
 
 /* Function to read from circular buffer and send data to TLV320 */
+<<<<<<< HEAD
 void I2S_Handler(void)
 {
 	static AverageFilter filter;
@@ -98,6 +97,32 @@ void stop(void)
 	wait(1);
 	audio.stop();
 	soundBuffer.stop_SoundBuffer();
+}
+
+void testOLED(void)
+{
+	oled.setRotation(0);
+	oled.clearDisplay();
+	oled.splash();
+	oled.display();
+	wait(10);
+	oled.display();
+	for(int x=0;x<128;x++)
+	{
+		for(int y=0;y<64;y++)
+		{
+			oled.drawPixel(x,y,WHITE);
+		}
+	}
+	oled.display();
+	oled.clearDisplay();
+	for(int x=0;x<100;x++)
+	{
+		oled.setTextCursor(0,0);
+		oled.printf("hello  %d \r\n",x);
+		oled.display();
+		wait(0.1);
+	}
 }
 
 
