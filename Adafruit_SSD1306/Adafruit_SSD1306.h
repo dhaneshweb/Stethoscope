@@ -29,6 +29,16 @@ All text above, and the splash screen must be included in any redistribution
 #include <vector>
 #include <algorithm>
 
+class I2CPreInit : public I2C
+{
+public:
+    I2CPreInit(PinName sda, PinName scl) : I2C(sda, scl)
+    {
+        frequency(1000000);
+        start();
+    };
+};
+
 // A DigitalOut sub-class that provides a constructed default state
 class DigitalOut2 : public DigitalOut
 {
@@ -50,7 +60,7 @@ public:
 class Adafruit_SSD1306 : public Adafruit_GFX
 {
 public:
-	Adafruit_SSD1306(PinName RST, uint8_t rawHeight = 32, uint8_t rawWidth = 128)
+	Adafruit_SSD1306(PinName RST, uint8_t rawHeight = 64, uint8_t rawWidth = 128)
 		: Adafruit_GFX(rawWidth,rawHeight)
 		, rst(RST,false)
 	{
@@ -199,16 +209,17 @@ public:
 protected:
 	virtual void sendDisplayBuffer()
 	{
-		char buff[17];
-		buff[0] = 0x40; // Data Mode
-
-		// send display buffer in 16 byte chunks
-		for(uint16_t i=0, q=buffer.size(); i<q; i+=16 ) 
-		{	uint8_t x ;
-
-			// TODO - this will segfault if buffer.size() % 16 != 0
-			for(x=1; x<sizeof(buff); x++) 
-				buff[x] = buffer[i+x-1];
+		char buff[129];
+		buff[0] = 0x40;
+		for(int page=0;page<8;page++)
+		{
+			command(0xB0+page);
+			command(0x02);
+			command(0x10);
+			for(int col=0;col<128;col++)
+			{
+				buff[1 + col] = buffer[col + page * 128];
+			}
 			mi2c.write(mi2cAddress, buff, sizeof(buff));
 		}
 	};

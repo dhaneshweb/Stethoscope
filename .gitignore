@@ -11,3 +11,4 @@ build
 *.aux
 *.log
 *.gz
+/Report/*.toc
