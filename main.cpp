@@ -64,7 +64,6 @@ int main()
 }
 
 /* Function to read from circular buffer and send data to TLV320 */
-<<<<<<< HEAD
 void I2S_Handler(void)
 {
 	static AverageFilter filter;

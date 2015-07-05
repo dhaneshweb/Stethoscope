@@ -12,7 +12,7 @@ public:
 private:
 	int filter_buffer_average();
 
-	static const int filterLength = 32;
+	static const int filterLength = 8;
 	static const int filterMask = filterLength - 1;
 	int filterPointer;
 	short filterBuffer[filterLength];

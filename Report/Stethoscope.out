@@ -19,7 +19,11 @@
 \BOOKMARK [3][-]{subsubsection.3.3.5}{其他外设}{subsection.3.3}% 19
 \BOOKMARK [1][-]{section.4}{PCB设计}{}% 20
 \BOOKMARK [1][-]{section.5}{软件设计}{}% 21
-\BOOKMARK [1][-]{section.6}{测试效果}{}% 22
-\BOOKMARK [1][-]{section.7}{阶段总结与展望}{}% 23
-\BOOKMARK [2][-]{subsection.7.1}{取得的成果}{section.7}% 24
-\BOOKMARK [2][-]{subsection.7.2}{之后的工作与展望}{section.7}% 25
+\BOOKMARK [2][-]{subsection.5.1}{滤波器设计}{section.5}% 22
+\BOOKMARK [3][-]{subsubsection.5.1.1}{抗噪滤波器}{subsection.5.1}% 23
+\BOOKMARK [3][-]{subsubsection.5.1.2}{呼吸音加强滤波器}{subsection.5.1}% 24
+\BOOKMARK [1][-]{section.6}{测试效果}{}% 25
+\BOOKMARK [1][-]{section.7}{阶段总结与展望}{}% 26
+\BOOKMARK [2][-]{subsection.7.1}{取得的成果}{section.7}% 27
+\BOOKMARK [2][-]{subsection.7.2}{阶段感受}{section.7}% 28
+\BOOKMARK [2][-]{subsection.7.3}{之后的工作与展望}{section.7}% 29

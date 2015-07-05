@@ -229,18 +229,56 @@ PCB设计采用Altium Designer 设计，按照通常混合信号系统的设计�
 \end{enumerate}
 
 
-所有的代码都发布在\href{https://github.com/gjc13/Stethoscope}{开源社区github}上。由于是模拟电子技术的报告，我们就不详述软件设计的细节了。
+所有的代码都发布在\href{https://github.com/gjc13/Stethoscope}{开源社区github}上。
 
-\section{测试效果}
-在附件中包含了录下的心跳声音，由于codec已经有比较大的输出放大倍数，所以录音音量较小，在电脑上听时需要调高音量。
-我们对采集到的声音在电脑上使用Matlab进行分析，得到的频谱图如下：
+\subsection{滤波器设计}
+\subsubsection{抗噪滤波器}
 \begin{figure}[H]
 \centering
-\includegraphics[scale = 1]{spectrogram.png}
+\includegraphics[scale = 1]{spectrogram_raw.png}
+\caption{原始声音频谱图} 
+\end{figure}
+通过对采集的声音短时傅里叶变换后的频谱图的分析，主要的能量分布在1kHz以下的频段，所以使用了8kHz采样率，并且增加了一个8阶的均值滤波器用来滤去高频噪声：
+\\
+滤波器传递函数为：$\sum\limits_{k=0}^{7}\frac{z^{-k}}{8}$
+滤波器的频率响应特性如下，截止频率大约在1100Hz左右：
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.7]{avg_filter.png}
+\caption{均值滤波器} 
+\end{figure}
+经过滤波器滤波之后的声音信号
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 1]{avg_filtered.png}
+\caption{均值滤波后的声音信号} 
+\end{figure} 	
+\subsubsection{呼吸音加强滤波器}
+由于在听诊中呼吸音往往会受到心音的干扰，所以我们考虑设计呼吸音加强的功能，由于心跳的声音频率普遍不超过500Hz，而呼吸有比较多的高次谐波，所以我们考虑使用带通滤波器加强呼吸音。但是由于呼吸音的基波频率也在500Hz以下，使用带通滤波器还是只能部分减弱心跳音。
+使用的带通滤波器为64阶FIR滤波器，线性相位。频率响应如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.7]{band_pass.png}
+\caption{带通滤波器} 
+\end{figure}
+截止频率大约为400Hz和1400Hz，经过滤波后的声音信号如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 1]{band_passed.png}
+\caption{带通滤波后的声音信号} 
+\end{figure}
+实际上带通滤波并没有完全去除心跳声音而只是减弱，这一是由于呼吸音的基波和心跳音的频段有较大的重复 	，第二是由于硬件处理速度限制了滤波器的阶数使得低频段的增益不能快速下降。
+
+\section{测试效果}
+在附件中包含了录下的心跳呼吸混合声音，avgfiltered.wav是均值滤波后的效果，而bandpass.wav是呼吸音加强的带通滤波器处理的效果。由于codec已经有比较大的输出放大倍数，所以录音音量较小，在电脑上听时需要调高音量。
+我们对采集到的心跳声音在电脑上使用Matlab进行分析，得到的频谱图如下：
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.7]{spectrogram.png}
 \caption{心跳声音频谱图} 
 \end{figure}
 可以明显看到第一心音和第二心音的不同以及1Hz左右反复出现的心跳信号。实测发现呼吸音和心跳音在实际测试中都没有超过2kHz，所以我们考虑之后在输入级增加低通滤波电路以进一步提高信噪比。
-
 
 
 和传统的听诊器对比，高频响应和放大倍数都有了明显提升，原来较弱的呼气音可以清晰的听到。但是信噪比不及传统听诊器，这是由于电路内部引入了不可避免的噪声，还需要进行电路设计的优化和数字滤波的处理来进一步增强信噪比。
@@ -251,7 +289,10 @@ PCB设计采用Altium Designer 设计，按照通常混合信号系统的设计�
 \item 设计了整体的数模混合的听诊器声音采集系统
 \item 完成了所有的芯片的软硬件调试工作
 \item 进行了初步的信号采集与分析
+\item 设计了不同的滤波器用于滤波和特定频段放大
 \end{enumerate}
+\subsection{阶段感受}
+在信号课程设计的过程中，我们完成了一个完整的信号处理系统的软硬件设计。其中尤其大的感受是信号处理是需要各个方面大量的软硬件技术配合才能达到比较好的效果。比如在我们的调试过程中，初期噪声总是非常大，如果使用低通滤波器尽心降噪需要将截止频率降到200Hz左右，呼吸音几乎一斤完全听不到。但是通过对硬件的调试，发现sd卡槽的金属盖没有接地，将其接地后立刻就大大降低了噪声。同时许多软件算法也会受到硬件的限制，NXP1768处理器的处理能力以及RAM大小都限制了我们不能使用很高阶的滤波器以及处理必须是实时的，不可能进行存储后再处理，也对软件设计提出了很多挑战，同时影响了一些最终滤波的效果。
 \subsection{之后的工作与展望}
 \begin{enumerate}
 \item 根据听诊器声音信号的特点，在前级进一步添加截止频率在2kHz左右的低通滤波电路以减小噪声。
